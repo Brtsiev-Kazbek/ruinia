@@ -1,3 +1,4 @@
+mod global_map_generation;
 mod global_map_input;
 mod main_menu;
 mod map_render;
@@ -18,7 +19,11 @@ pub fn build_systems_set(app: &mut App) {
     app.add_system_set(
         ConditionSet::new()
             .run_in_state(TurnState::GlobalMap)
-            .with_system(map_render::global_map_render)
+            .with_system(
+                global_map_generation::global_map_generation
+                    .run_unless_resource_exists::<GlobalMap>(),
+            )
+            .with_system(map_render::global_map_render.run_if_resource_exists::<GlobalMap>())
             .with_system(global_map_input::global_map_input)
             .into(),
     );

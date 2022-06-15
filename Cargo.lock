@@ -3165,7 +3165,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "ruinia_roguelike"
+name = "ruinia"
 version = "0.1.0"
 dependencies = [
  "bevy",

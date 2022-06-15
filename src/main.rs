@@ -41,9 +41,7 @@ impl State {
     pub fn new() -> Self {
         let mut ecs = App::new();
         ecs.add_loopless_state(TurnState::MainMenu);
-        let global_map = generate_global_map(GlobalMap::new());
 
-        ecs.insert_resource(global_map);
         ecs.insert_resource(PointG(Point::new(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2)));
         ecs.insert_resource(GlobalCamera::new(Point::new(
             DISPLAY_WIDTH / 2,

@@ -1,5 +1,5 @@
 [package]
-name = "ruinia_roguelike"
+name = "ruinia"
 authors = ["Kazbek Brtsiev <brtsievkazbek@yandex.ru>"]
 version = "0.1.0"
 edition = "2021"
