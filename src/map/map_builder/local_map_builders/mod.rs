@@ -1,5 +1,3 @@
-mod local_map_builder;
-
 use crate::prelude::*;
 use bracket_lib::prelude::Rect;
 
@@ -19,20 +17,20 @@ impl LocalMapBuilder {
     }
 }
 
-pub struct BuilderChain {
-    starter: Option<Box<dyn InitialMapBuilder>>,
-    builders: Vec<Box<dyn MetaMapBuilder>>,
+pub struct LocalMapBuilderChain {
+    starter: Option<Box<dyn InitialLocalMapBuilder>>,
+    builders: Vec<Box<dyn MetaLocalMapBuilder>>,
     pub build_data: LocalMapBuilder
 }
 
-impl BuilderChain {
-    pub fn new(new_depth: i32) -> BuilderChain {
-        BuilderChain {
+impl LocalMapBuilderChain {
+    pub fn new(depth: i32) -> LocalMapBuilderChain {
+        LocalMapBuilderChain {
             starter: None,
             builders: Vec::new(),
             build_data: LocalMapBuilder {
                 spawn_list: Vec::new(),
-                map: LocalMap::new(new_depth),
+                map: LocalMap::new(depth),
                 starting_position: None,
                 rooms: None,
                 history: Vec::new()
@@ -40,14 +38,14 @@ impl BuilderChain {
         }
     }
 
-    pub fn start_with(&mut self, starter: Box<dyn InitialMapBuilder>) {
+    pub fn start_with(&mut self, starter: Box<dyn InitialLocalMapBuilder>) {
         match self.starter {
             None => self.starter = Some(starter),
             Some(_) => panic!("You can only have one starting builder.")
         };
     }
 
-    pub fn with(&mut self, metabuilder: Box<dyn MetaMapBuilder>) {
+    pub fn with(&mut self, metabuilder: Box<dyn MetaLocalMapBuilder>) {
         self.builders.push(metabuilder);
     }
 
@@ -72,10 +70,10 @@ impl BuilderChain {
     }
 }
 
-pub trait InitialMapBuilder {
+pub trait InitialLocalMapBuilder {
     fn build_map(&mut self, rng: &mut RandomNumberGenerator, build_data : &mut LocalMapBuilder);
 }
 
-pub trait MetaMapBuilder {    
+pub trait MetaLocalMapBuilder {    
     fn build_map(&mut self, rng: &mut RandomNumberGenerator, build_data : &mut LocalMapBuilder);
 }

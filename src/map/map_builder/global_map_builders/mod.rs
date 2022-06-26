@@ -9,16 +9,6 @@ mod global_noise_nuilder;
 mod global_structures_builder;
 mod global_simple_builder;
 
-// pub fn generate_global_map(map: GlobalMap) -> GlobalMap {
-//     let mut noise_map_builder = GlobalNoiseBuilder::new(map);
-//     let noise_map = noise_map_builder.build();
-
-//     let mut structures_map_builder = GlobalStructuresBuilder::new(noise_map);
-//     let structures_map = structures_map_builder.build();
-
-//     structures_map
-// }
-
 pub struct GlobalMapBuilder {
     pub spawn_list: Vec<(usize, String)>,
     pub map: GlobalMap,
