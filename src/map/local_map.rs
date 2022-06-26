@@ -12,7 +12,8 @@ pub struct LocalMap {
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub enum LocalTileType {
     Floor,
-    Wall
+    Wall,
+    DownStairs
 }
 
 pub fn local_map_idx(x: i32, y: i32) -> usize {

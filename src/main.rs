@@ -16,8 +16,8 @@ mod prelude {
     pub const DISPLAY_HEIGHT: i32 = SCREEN_HEIGHT / 2;
 
     // Размер глобальной карты
-    pub const GLOBAL_MAP_WIDTH: i32 = 50;
-    pub const GLOBAL_MAP_HEIGHT: i32 = 50;
+    pub const GLOBAL_MAP_WIDTH: i32 = SCREEN_WIDTH / 2;
+    pub const GLOBAL_MAP_HEIGHT: i32 = SCREEN_HEIGHT / 2;
 
     // Размер локальной карты
     pub const LOCAL_MAP_WIDTH: i32 = 250;
@@ -47,7 +47,17 @@ impl State {
         ecs.add_loopless_state(TurnState::MainMenu);
 
         ecs.insert_resource(PointG(Point::new(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2)));
+
+        // TODO: Implement getting player position depends on local map type
+        ecs.insert_resource(PointL(Point::new(DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2)));
+
+
         ecs.insert_resource(GlobalCamera::new(Point::new(
+            DISPLAY_WIDTH / 2,
+            DISPLAY_HEIGHT / 2,
+        )));
+
+        ecs.insert_resource(LocalCamera::new(Point::new(
             DISPLAY_WIDTH / 2,
             DISPLAY_HEIGHT / 2,
         )));

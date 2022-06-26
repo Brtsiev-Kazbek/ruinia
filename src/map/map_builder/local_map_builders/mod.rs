@@ -1,6 +1,22 @@
 use crate::prelude::*;
 use bracket_lib::prelude::Rect;
 
+mod local_bsp_dungeon_builder;
+mod local_basic_map_builder;
+mod local_simple_map_builder;
+mod local_room_based_spawner;
+mod local_room_based_position;
+mod local_room_based_stairs;
+mod common;
+
+pub use local_bsp_dungeon_builder::*;
+pub use local_basic_map_builder::*;
+pub use local_simple_map_builder::*;
+pub use local_room_based_spawner::*;
+pub use local_room_based_position::*;
+pub use local_room_based_stairs::*;
+pub use common::*;
+
 pub struct LocalMapBuilder {
     pub spawn_list: Vec<(usize, String)>,
     pub map: LocalMap,

@@ -77,3 +77,5 @@ pub fn global_map_render(global_map: Res<GlobalMap>, global_camera: Res<GlobalCa
 
     draw_batch.submit(0).expect("Batch error");
 }
+
+

@@ -1,13 +1,13 @@
 use crate::prelude::*;
 
-pub struct Camera {
+pub struct LocalCamera {
     pub left_x: i32,
     pub right_x: i32,
     pub top_y: i32,
     pub bottom_y: i32,
 }
 
-impl Camera {
+impl LocalCamera {
     pub fn new(player_position: Point) -> Self {
         Self {
             left_x: player_position.x - DISPLAY_WIDTH / 2,

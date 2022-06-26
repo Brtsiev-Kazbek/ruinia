@@ -14,6 +14,10 @@ pub fn main_menu() {
 pub fn main_menu_input(mut commands: Commands, key: Option<Res<VirtualKeyCode>>) {
     if let Some(key) = key.as_deref() {
         match key {
+            VirtualKeyCode::P => {
+                commands.insert_resource(NextState(TurnState::AwaitingInput));
+                println!("State GlobalMap");
+            }
             VirtualKeyCode::G => {
                 commands.insert_resource(NextState(TurnState::GlobalMap));
                 println!("State GlobalMap");
