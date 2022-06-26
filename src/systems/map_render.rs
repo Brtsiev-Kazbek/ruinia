@@ -1,6 +1,6 @@
 use crate::prelude::*;
 
-pub fn global_map_render(global_map: Res<GlobalMap>, global_camera: Res<GlobalCamera>) {
+pub fn global_map_render(global_map: Res<GlobalMap>, global_camera: Res<GlobalCamera>, global_point_position: ResMut<PointG>) {
     let mut draw_batch = DrawBatch::new();
     draw_batch.target(0);
 
@@ -63,6 +63,14 @@ pub fn global_map_render(global_map: Res<GlobalMap>, global_camera: Res<GlobalCa
                         );
                     }
                 }
+            }
+
+            if x == global_point_position.0.x && y == global_point_position.0.y {
+                draw_batch.set(
+                    position - offset,
+                    ColorPair::new(ORANGE, BLACK),
+                    to_cp437('X'),
+                );
             }
         }
     }

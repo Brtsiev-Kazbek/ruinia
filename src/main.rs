@@ -16,12 +16,16 @@ mod prelude {
     pub const DISPLAY_HEIGHT: i32 = SCREEN_HEIGHT / 2;
 
     // Размер глобальной карты
-    pub const GLOBAL_MAP_WIDTH: i32 = 25;
-    pub const GLOBAL_MAP_HEIGHT: i32 = 25;
+    pub const GLOBAL_MAP_WIDTH: i32 = 50;
+    pub const GLOBAL_MAP_HEIGHT: i32 = 50;
+
+    // Размер локальной карты
+    pub const LOCAL_MAP_WIDTH: i32 = 250;
+    pub const LOCAL_MAP_HEIGHT: i32 = 250;
 
     pub const TOWN_COUNT: i32 = 2;
     pub const FORTRESS_COUNT: i32 = 1;
-    pub const TEMPLE_COUNT: i32 = 1;
+    pub const TEMPLE_COUNT: i32 = 4;
 
     pub use crate::camera::*;
     pub use crate::map::*;
@@ -77,9 +81,9 @@ impl GameState for State {
 }
 
 fn main() -> BError {
-    let context = BTermBuilder::new()
+    let mut context = BTermBuilder::new()
         .with_title("Ruinia")
-        .with_fps_cap(30.0)
+        .with_fps_cap(120.0)
         .with_dimensions(DISPLAY_WIDTH * 2, DISPLAY_HEIGHT * 2)
         .with_tile_dimensions(8, 8)
         .with_resource_path("resources/")
@@ -89,5 +93,6 @@ fn main() -> BError {
         .with_simple_console_no_bg(SCREEN_WIDTH * 2, SCREEN_HEIGHT * 2, "terminal8x8.png") // GUI
         .build()?;
 
+    // context.with_post_scanlines(true);
     main_loop(context, State::new())
 }
