@@ -30,7 +30,7 @@ pub fn local_map_render(local_map: Res<LocalMap>, local_camera: Res<LocalCamera>
                     LocalTileType::DownStairs => {
                         draw_batch.set(
                             position - offset,
-                            ColorPair::new(GREY, BLACK),
+                            ColorPair::new(WHITE, BLACK),
                             to_cp437('↓'),
                         );
                     }

@@ -4,6 +4,73 @@ use crate::prelude::*;
 use bracket_lib::prelude::Rect;
 
 
+#[derive(PartialEq, Copy, Clone)]
+#[allow(dead_code)]
+pub enum Symmetry { None, Horizontal, Vertical, Both }
+
+
+pub fn paint(map: &mut LocalMap, mode: Symmetry, brush_size: i32, x: i32, y:i32) {
+    match mode {
+        Symmetry::None => apply_paint(map, brush_size, x, y),
+        Symmetry::Horizontal => {
+            let center_x = LOCAL_MAP_WIDTH / 2;
+            if x == center_x {
+                apply_paint(map, brush_size, x, y);
+            } else {
+                let dist_x = i32::abs(center_x - x);
+                apply_paint(map, brush_size, center_x + dist_x, y);
+                apply_paint(map, brush_size, center_x - dist_x, y);
+            }
+        }
+        Symmetry::Vertical => {
+            let center_y = LOCAL_MAP_HEIGHT / 2;
+            if y == center_y {
+                apply_paint(map, brush_size, x, y);
+            } else {
+                let dist_y = i32::abs(center_y - y);
+                apply_paint(map, brush_size, x, center_y + dist_y);
+                apply_paint(map, brush_size, x, center_y - dist_y);
+            }
+        }
+        Symmetry::Both => {
+            let center_x = LOCAL_MAP_WIDTH / 2;
+            let center_y = LOCAL_MAP_HEIGHT / 2;
+            if x == center_x && y == center_y {
+                apply_paint(map, brush_size, x, y);
+            } else {
+                let dist_x = i32::abs(center_x - x);
+                apply_paint(map, brush_size, center_x + dist_x, y);
+                apply_paint(map, brush_size, center_x - dist_x, y);
+                let dist_y = i32::abs(center_y - y);
+                apply_paint(map, brush_size, x, center_y + dist_y);
+                apply_paint(map, brush_size, x, center_y - dist_y);
+            }
+        }
+    }
+}
+
+fn apply_paint(map: &mut LocalMap, brush_size: i32, x: i32, y: i32) {
+    match brush_size {
+        1 => {
+            let digger_idx = local_map_idx(x, y);
+            map.tiles[digger_idx] = LocalTileType::Floor;
+        }
+
+        _ => {
+            let half_brush_size = brush_size / 2;
+            for brush_y in y-half_brush_size .. y+half_brush_size {
+                for brush_x in x-half_brush_size .. x+half_brush_size {
+                    if brush_x > 1 && brush_x < LOCAL_MAP_WIDTH-1 && brush_y > 1 && brush_y < LOCAL_MAP_HEIGHT-1 {
+                        let idx = local_map_idx(brush_x, brush_y);
+                        map.tiles[idx] = LocalTileType::Floor;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
 pub fn apply_room_to_map(map : &mut LocalMap, room : &Rect) {
     for y in room.y1 +1 ..= room.y2 {
         for x in room.x1 + 1 ..= room.x2 {

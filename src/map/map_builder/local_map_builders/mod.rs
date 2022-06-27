@@ -7,6 +7,17 @@ mod local_simple_map_builder;
 mod local_room_based_spawner;
 mod local_room_based_position;
 mod local_room_based_stairs;
+mod local_bsp_interior_builder;
+mod local_cellular_automata_builder;
+mod local_area_starting_points;
+mod local_cull_unreachable;
+mod local_voronoi_spawning;
+mod local_distant_exit;
+mod local_drunkard;
+mod local_dla_builder;
+mod local_maze_builder;
+mod local_voronoi_builder;
+mod local_waveform_collapse;
 mod common;
 
 pub use local_bsp_dungeon_builder::*;
@@ -15,6 +26,17 @@ pub use local_simple_map_builder::*;
 pub use local_room_based_spawner::*;
 pub use local_room_based_position::*;
 pub use local_room_based_stairs::*;
+pub use local_bsp_interior_builder::*;
+pub use local_cellular_automata_builder::*;
+pub use local_area_starting_points::*;
+pub use local_cull_unreachable::*;
+pub use local_voronoi_spawning::*;
+pub use local_distant_exit::*;
+pub use local_drunkard::*;
+pub use local_dla_builder::*;
+pub use local_maze_builder::*;
+pub use local_voronoi_builder::*;
+pub use local_waveform_collapse::*;
 pub use common::*;
 
 pub struct LocalMapBuilder {
