@@ -4,6 +4,7 @@ pub struct DistantExit {}
 
 impl MetaLocalMapBuilder for DistantExit {
     fn build_map(&mut self, rng: &mut RandomNumberGenerator, build_data : &mut LocalMapBuilder)  {
+        println!("[DistantExit]");
         self.build(rng, build_data);
     }
 }

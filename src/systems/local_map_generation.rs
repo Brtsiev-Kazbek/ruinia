@@ -7,6 +7,17 @@ pub fn local_map_generation(mut commands: Commands) {
     let mut rng = RandomNumberGenerator::new();
     let mut local_map_builder = LocalMapBuilderChain::new(0);
 
+    local_map_builder.start_with(BasicLocalMapBuilder::new());
+    local_map_builder.with(BspInteriorBuilder::new());
+    // local_map_builder.with(BspLocalMapBuilder::new());
+    // local_map_builder.with(RoomSorter::new(RoomSort::BOTTOMMOST));
+    // local_map_builder.with(BspCorridors::new());
+    // local_map_builder.with(RoomCornerRounder::new());
+    // local_map_builder.with(RoomExploder::new());
+    local_map_builder.with(AreaStartingPosition::new(XStart::CENTER, YStart::CENTER));
+    local_map_builder.with(CullUnreachable::new());
+    local_map_builder.with(VoronoiSpawning::new());
+    local_map_builder.with(DistantExit::new());
 
     // BSP TESTING
     // local_map_builder.start_with(BasicLocalMapBuilder::new());
@@ -61,6 +72,9 @@ pub fn local_map_generation(mut commands: Commands) {
     // local_map_builder.with(AreaStartingPosition::new(XStart::CENTER, YStart::CENTER));
     // local_map_builder.with(CullUnreachable::new());
     // local_map_builder.with(DistantExit::new());
+
+
+    // TODO: Implement prefab builder
 
     local_map_builder.build_map(&mut rng);
     

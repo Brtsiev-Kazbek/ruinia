@@ -30,7 +30,7 @@ impl BspLocalMapBuilder {
     fn build(&mut self, rng : &mut RandomNumberGenerator, build_data : &mut LocalMapBuilder) {
         let mut rooms : Vec<Rect> = Vec::new();
         self.rects.clear();
-        self.rects.push( Rect::with_exact(2, 2, LOCAL_MAP_WIDTH-5, LOCAL_MAP_HEIGHT-5) );
+        self.rects.push( Rect::with_exact(2, 2, LOCAL_MAP_WIDTH, LOCAL_MAP_HEIGHT-5) ); // Start with a single map-sized rectangle
         let first_room = self.rects[0];
         self.add_subrects(first_room); // Divide the first room
 
@@ -49,21 +49,6 @@ impl BspLocalMapBuilder {
             }
 
             n_rooms += 1;
-        }
-
-        // Now we sort the rooms
-        rooms.sort_by(|a,b| a.x1.cmp(&b.x1) );
-
-        // Now we want corridors
-        for i in 0..rooms.len()-1 {
-            let room = rooms[i];
-            let next_room = rooms[i+1];
-            let start_x = room.x1 + (rng.roll_dice(1, i32::abs(room.x1 - room.x2))-1);
-            let start_y = room.y1 + (rng.roll_dice(1, i32::abs(room.y1 - room.y2))-1);
-            let end_x = next_room.x1 + (rng.roll_dice(1, i32::abs(next_room.x1 - next_room.x2))-1);
-            let end_y = next_room.y1 + (rng.roll_dice(1, i32::abs(next_room.y1 - next_room.y2))-1);
-            draw_corridor(&mut build_data.map, start_x, start_y, end_x, end_y);
-            build_data.take_snapshot();
         }
         build_data.rooms = Some(rooms);
     }

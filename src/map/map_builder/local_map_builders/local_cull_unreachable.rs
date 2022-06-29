@@ -4,6 +4,7 @@ pub struct CullUnreachable {}
 
 impl MetaLocalMapBuilder for CullUnreachable {
     fn build_map(&mut self, rng: &mut RandomNumberGenerator, build_data : &mut LocalMapBuilder)  {
+        println!("[CullUnreachable]");
         self.build(rng, build_data);
     }
 }

@@ -18,6 +18,11 @@ mod local_dla_builder;
 mod local_maze_builder;
 mod local_voronoi_builder;
 mod local_waveform_collapse;
+mod local_room_exploder;
+mod local_room_corner_rounding;
+mod local_rooms_corridors_dogleg;
+mod local_rooms_corridors_bsp;
+mod local_room_sorter;
 mod common;
 
 pub use local_bsp_dungeon_builder::*;
@@ -37,6 +42,11 @@ pub use local_dla_builder::*;
 pub use local_maze_builder::*;
 pub use local_voronoi_builder::*;
 pub use local_waveform_collapse::*;
+pub use local_room_exploder::*;
+pub use local_room_corner_rounding::*;
+pub use local_rooms_corridors_dogleg::*;
+pub use local_rooms_corridors_bsp::*;
+pub use local_room_sorter::*;
 pub use common::*;
 
 pub struct LocalMapBuilder {

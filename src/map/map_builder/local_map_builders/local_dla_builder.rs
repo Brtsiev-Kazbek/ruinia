@@ -70,6 +70,16 @@ impl DLABuilder {
         })
     }
 
+    #[allow(dead_code)]
+    pub fn heavy_erosion() -> Box<DLABuilder> {
+        Box::new(DLABuilder{
+            algorithm: DLAAlgorithm::WalkInwards,
+            brush_size: 2,
+            symmetry: Symmetry::None,
+            floor_percent: 0.35,
+        })
+    }
+
     #[allow(clippy::map_entry)]
     fn build(&mut self, rng : &mut RandomNumberGenerator, build_data : &mut LocalMapBuilder) {
         // Carve a starting seed
@@ -156,5 +166,6 @@ impl DLABuilder {
 
             floor_tile_count = build_data.map.tiles.iter().filter(|a| **a == LocalTileType::Floor).count();
         }
+
     }    
 }

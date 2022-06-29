@@ -20,8 +20,8 @@ mod prelude {
     pub const GLOBAL_MAP_HEIGHT: i32 = SCREEN_HEIGHT / 2;
 
     // Размер локальной карты
-    pub const LOCAL_MAP_WIDTH: i32 = 100;
-    pub const LOCAL_MAP_HEIGHT: i32 = 100;
+    pub const LOCAL_MAP_WIDTH: i32 = 80;
+    pub const LOCAL_MAP_HEIGHT: i32 = 50;
 
     pub const TOWN_COUNT: i32 = 2;
     pub const FORTRESS_COUNT: i32 = 1;

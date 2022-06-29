@@ -13,6 +13,7 @@ pub struct AreaStartingPosition {
 
 impl MetaLocalMapBuilder for AreaStartingPosition {
     fn build_map(&mut self, rng: &mut RandomNumberGenerator, build_data : &mut LocalMapBuilder)  {
+        println!("[AreaStartingPosition]");
         self.build(rng, build_data);
     }
 }

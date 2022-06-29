@@ -19,6 +19,7 @@ pub struct DrunkardsWalkBuilder {
 impl MetaLocalMapBuilder for DrunkardsWalkBuilder {
     #[allow(dead_code)]
     fn build_map(&mut self, rng: &mut RandomNumberGenerator, build_data : &mut LocalMapBuilder) {
+        println!("[DrunkardsWalkBuilder]");
         self.build(rng, build_data);
     }
 }

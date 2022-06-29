@@ -6,6 +6,7 @@ pub struct VoronoiSpawning {}
 
 impl MetaLocalMapBuilder for VoronoiSpawning {
     fn build_map(&mut self, rng: &mut RandomNumberGenerator, build_data : &mut LocalMapBuilder)  {
+        println!("[VoronoiSpawning]");
         self.build(rng, build_data);
     }
 }
