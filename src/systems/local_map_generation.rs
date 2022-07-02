@@ -8,16 +8,27 @@ pub fn local_map_generation(mut commands: Commands) {
     let mut local_map_builder = LocalMapBuilderChain::new(0);
 
     local_map_builder.start_with(BasicLocalMapBuilder::new());
-    local_map_builder.with(BspInteriorBuilder::new());
+    // local_map_builder.with(BspInteriorBuilder::new());
     // local_map_builder.with(BspLocalMapBuilder::new());
     // local_map_builder.with(RoomSorter::new(RoomSort::BOTTOMMOST));
     // local_map_builder.with(BspCorridors::new());
     // local_map_builder.with(RoomCornerRounder::new());
     // local_map_builder.with(RoomExploder::new());
-    local_map_builder.with(AreaStartingPosition::new(XStart::CENTER, YStart::CENTER));
-    local_map_builder.with(CullUnreachable::new());
-    local_map_builder.with(VoronoiSpawning::new());
-    local_map_builder.with(DistantExit::new());
+
+    // local_map_builder.with(AreaStartingPosition::new(XStart::CENTER, YStart::CENTER));
+    // local_map_builder.with(CullUnreachable::new());
+    // local_map_builder.with(VoronoiSpawning::new());
+    // local_map_builder.with(DistantExit::new());
+
+    local_map_builder.with(SimpleLocalMapBuilder::new());
+    local_map_builder.with(RoomDrawer::new());
+    local_map_builder.with(RoomSorter::new(RoomSort::LEFTMOST));
+    local_map_builder.with(StraightLineCorridors::new());
+    local_map_builder.with(RoomBasedSpawner::new());
+    local_map_builder.with(CorridorSpawner::new());
+    local_map_builder.with(RoomBasedStairs::new());
+    local_map_builder.with(RoomBasedStartingPosition::new());
+
 
     // BSP TESTING
     // local_map_builder.start_with(BasicLocalMapBuilder::new());

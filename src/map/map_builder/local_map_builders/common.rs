@@ -82,7 +82,32 @@ pub fn apply_room_to_map(map : &mut LocalMap, room : &Rect) {
     }
 }
 
-pub fn draw_corridor(map: &mut LocalMap, x1:i32, y1:i32, x2:i32, y2:i32) {
+pub fn apply_horizontal_tunnel(map : &mut LocalMap, x1:i32, x2:i32, y:i32) -> Vec<usize> {
+    let mut corridor = Vec::new();
+    for x in min(x1,x2) ..= max(x1,x2) {
+        let idx = local_map_idx(x, y);
+        if idx > 0 && idx < LOCAL_MAP_WIDTH as usize * LOCAL_MAP_HEIGHT as usize && map.tiles[idx as usize] != LocalTileType::Floor {
+            map.tiles[idx as usize] = LocalTileType::Floor;
+            corridor.push(idx as usize);
+        }
+    }
+    corridor
+}
+
+pub fn apply_vertical_tunnel(map : &mut LocalMap, y1:i32, y2:i32, x:i32) -> Vec<usize> {
+    let mut corridor = Vec::new();
+    for y in min(y1,y2) ..= max(y1,y2) {
+        let idx = local_map_idx(x, y);
+        if idx > 0 && idx < LOCAL_MAP_WIDTH as usize * LOCAL_MAP_HEIGHT as usize && map.tiles[idx as usize] != LocalTileType::Floor {
+            corridor.push(idx);
+            map.tiles[idx as usize] = LocalTileType::Floor;
+        }
+    }
+    corridor
+}
+
+pub fn draw_corridor(map: &mut LocalMap, x1:i32, y1:i32, x2:i32, y2:i32) -> Vec<usize> {
+    let mut corridor = Vec::new();
     let mut x = x1;
     let mut y = y1;
 
@@ -98,24 +123,11 @@ pub fn draw_corridor(map: &mut LocalMap, x1:i32, y1:i32, x2:i32, y2:i32) {
         }
 
         let idx = local_map_idx(x, y);
-        map.tiles[idx] = LocalTileType::Floor;
-    }
-}
-
-pub fn apply_horizontal_tunnel(map : &mut LocalMap, x1:i32, x2:i32, y:i32) {
-    for x in min(x1,x2) ..= max(x1,x2) {
-        let idx = local_map_idx(x, y);
-        if idx > 0 && idx < LOCAL_MAP_WIDTH as usize * LOCAL_MAP_HEIGHT as usize {
-            map.tiles[idx as usize] = LocalTileType::Floor;
+        if map.tiles[idx] != LocalTileType::Floor {
+            corridor.push(idx);
+            map.tiles[idx] = LocalTileType::Floor;
         }
     }
-}
 
-pub fn apply_vertical_tunnel(map : &mut LocalMap, y1:i32, y2:i32, x:i32) {
-    for y in min(y1,y2) ..= max(y1,y2) {
-        let idx = local_map_idx(x, y);
-        if idx > 0 && idx < LOCAL_MAP_WIDTH as usize * LOCAL_MAP_HEIGHT as usize {
-            map.tiles[idx as usize] = LocalTileType::Floor;
-        }
-    }
+    corridor
 }

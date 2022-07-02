@@ -23,6 +23,10 @@ mod local_room_corner_rounding;
 mod local_rooms_corridors_dogleg;
 mod local_rooms_corridors_bsp;
 mod local_room_sorter;
+mod local_room_draw;
+mod local_rooms_corridors_nearest;
+mod local_rooms_corridors_lines;
+mod local_room_corridor_spawner;
 mod common;
 
 pub use local_bsp_dungeon_builder::*;
@@ -47,6 +51,10 @@ pub use local_room_corner_rounding::*;
 pub use local_rooms_corridors_dogleg::*;
 pub use local_rooms_corridors_bsp::*;
 pub use local_room_sorter::*;
+pub use local_room_draw::*;
+pub use local_rooms_corridors_nearest::*;
+pub use local_rooms_corridors_lines::*;
+pub use local_room_corridor_spawner::*;
 pub use common::*;
 
 pub struct LocalMapBuilder {
@@ -54,6 +62,7 @@ pub struct LocalMapBuilder {
     pub map: LocalMap,
     pub starting_position: Option<PointL>,
     pub rooms: Option<Vec<Rect>>,
+    pub corridors: Option<Vec<Vec<usize>>>,
     pub history: Vec<LocalMap>
 }
 
@@ -81,6 +90,7 @@ impl LocalMapBuilderChain {
                 map: LocalMap::new(depth),
                 starting_position: None,
                 rooms: None,
+                corridors: None,
                 history: Vec::new()
             }
         }

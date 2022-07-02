@@ -41,11 +41,9 @@ impl BspLocalMapBuilder {
             let rect = self.get_random_rect(rng);
             let candidate = self.get_random_sub_rect(rect, rng);
 
-            if self.is_possible(candidate, &build_data.map) {
-                apply_room_to_map(&mut build_data.map, &candidate);
+            if self.is_possible(candidate, &build_data, &rooms) {
                 rooms.push(candidate);
                 self.add_subrects(rect);
-                build_data.take_snapshot();
             }
 
             n_rooms += 1;
@@ -87,15 +85,19 @@ impl BspLocalMapBuilder {
         result
     }
 
-    fn is_possible(&self, rect : Rect, map : &LocalMap) -> bool {
+    fn is_possible(&self, rect : Rect, build_data : &LocalMapBuilder, rooms: &Vec<Rect>) -> bool {
         let mut expanded = rect;
         expanded.x1 -= 2;
         expanded.x2 += 2;
         expanded.y1 -= 2;
         expanded.y2 += 2;
-
+    
         let mut can_build = true;
-
+    
+        for r in rooms.iter() {
+            if r.intersect(&rect) { can_build = false; }
+        }
+    
         for y in expanded.y1 ..= expanded.y2 {
             for x in expanded.x1 ..= expanded.x2 {
                 if x > LOCAL_MAP_WIDTH-2 { can_build = false; }
@@ -104,12 +106,13 @@ impl BspLocalMapBuilder {
                 if y < 1 { can_build = false; }
                 if can_build {
                     let idx = local_map_idx(x, y);
-                    if map.tiles[idx] != LocalTileType::Wall { 
+                    if build_data.map.tiles[idx] != LocalTileType::Wall { 
                         can_build = false; 
                     }
                 }
             }
         }
+    
         can_build
     }
 }
